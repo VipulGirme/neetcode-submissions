@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {  
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    String rootStr = serialize(root);
+    String subStr = serialize(subRoot);
+    return rootStr.contains(subStr);
+}
+
+// Preorder with null markers to avoid false positives like
+// [12] vs [2] both serializing to "12"
+private String serialize(TreeNode node) {
+    if (node == null) return ",#";
+    return "," + node.val + serialize(node.left) + serialize(node.right);
+}
+}
